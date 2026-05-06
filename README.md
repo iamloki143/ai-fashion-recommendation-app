@@ -141,12 +141,3 @@ pip install fastapi uvicorn pandas openpyxl
 ```bash
 uvicorn main:app --reload
 ```
-
----
-
-# Author
-
-Lokesh Kumar
-
-GitHub:
-https://github.com/iamloki143
