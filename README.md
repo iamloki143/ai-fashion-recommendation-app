@@ -90,28 +90,6 @@ backend/
  └── fashion_products.xlsx
 ```
 
----
-
-# Screenshots
-
-## Home Screen
-
-(Add screenshot here)
-
-## Product Details
-
-(Add screenshot here)
-
-## Cart Screen
-
-(Add screenshot here)
-
-## Profile Screen
-
-(Add screenshot here)
-
----
-
 # Future Improvements
 
 - Machine Learning Recommendation System
