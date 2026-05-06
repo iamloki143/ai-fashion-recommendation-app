@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Main App Theme -->
+    <style name="Theme.DressBrand" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </style>
+
+    <!-- Splash Theme -->
+    <style name="Theme.DressBrand.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+</resources>
