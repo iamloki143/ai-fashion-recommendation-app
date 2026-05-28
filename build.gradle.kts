@@ -8,6 +8,6 @@ plugins {
 
     alias(libs.plugins.kotlin.compose) apply false
 
-    id("com.google.devtools.ksp") version "2.2.10-2.0.2" apply false
+    id("com.google.devtools.ksp") version "2.1.10-1.0.29" apply false
 
 }

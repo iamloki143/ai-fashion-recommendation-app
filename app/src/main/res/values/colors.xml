@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="splash_bg">#BBA3AE</color> <!-- DustyMauve -->
+    <!-- Core Brand -->
+    <color name="deep_obsidian">#0E0E10</color>
+    <color name="rich_charcoal">#1A1A1E</color>
+    <color name="elevated_surface">#242428</color>
+    <color name="subtle_border">#2E2E34</color>
+
+    <!-- Gold Accent -->
+    <color name="luxe_gold">#D4A84B</color>
+    <color name="pale_gold">#F0D080</color>
+    <color name="muted_gold">#8C6E2F</color>
+
+    <!-- Text -->
+    <color name="ivory_white">#F5F0E8</color>
+    <color name="silver_mist">#ADADB8</color>
+    <color name="dim_steel">#6B6B7A</color>
+
+    <!-- Semantic -->
+    <color name="soft_crimson">#B04A4A</color>
+    <color name="mint_success">#4A8C6A</color>
+
+    <!-- Material Theme Mappings -->
+    <color name="md_theme_light_primary">#D4A84B</color>
+    <color name="md_theme_light_onPrimary">#0E0E10</color>
+    <color name="md_theme_light_background">#0E0E10</color>
+    <color name="md_theme_light_surface">#1A1A1E</color>
+    <color name="md_theme_light_onSurface">#F5F0E8</color>
+
+    <color name="md_theme_dark_primary">#D4A84B</color>
+    <color name="md_theme_dark_onPrimary">#0E0E10</color>
+    <color name="md_theme_dark_background">#0E0E10</color>
+    <color name="md_theme_dark_surface">#1A1A1E</color>
+    <color name="md_theme_dark_onSurface">#F5F0E8</color>
 </resources>

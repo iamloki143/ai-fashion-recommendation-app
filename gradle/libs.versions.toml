@@ -2,7 +2,7 @@
 
 agp = "8.8.0"
 
-kotlin = "2.1.20"
+kotlin = "2.1.10"
 
 coreKtx = "1.15.0"
 
