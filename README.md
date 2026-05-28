@@ -90,28 +90,6 @@ backend/
  └── fashion_products.xlsx
 ```
 
----
-
-# Screenshots
-
-## Home Screen
-
-(Add screenshot here)
-
-## Product Details
-
-(Add screenshot here)
-
-## Cart Screen
-
-(Add screenshot here)
-
-## Profile Screen
-
-(Add screenshot here)
-
----
-
 # Future Improvements
 
 - Machine Learning Recommendation System
@@ -163,12 +141,3 @@ pip install fastapi uvicorn pandas openpyxl
 ```bash
 uvicorn main:app --reload
 ```
-
----
-
-# Author
-
-Lokesh Kumar
-
-GitHub:
-https://github.com/iamloki143
