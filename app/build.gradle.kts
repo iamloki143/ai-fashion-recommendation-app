@@ -216,5 +216,9 @@ dependencies {
     implementation(
         "com.google.android.material:material:1.12.0"
     )
+    //----------------------------
+    // Schemmer
+    //----------------------------
+    implementation("com.valentinilk.shimmer:compose-shimmer:1.3.1")
 
 }

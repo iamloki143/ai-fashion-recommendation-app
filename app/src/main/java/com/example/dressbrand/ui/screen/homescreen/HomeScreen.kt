@@ -68,6 +68,7 @@ import com.example.dressbrand.ui.theme.MutedGold
 import com.example.dressbrand.ui.theme.RichCharcoal
 import com.example.dressbrand.ui.theme.SilverMist
 import com.example.dressbrand.ui.theme.SubtleBorder
+import com.example.dressbrand.utils.ProductCardSkeleton
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,6 +89,9 @@ fun HomeScreen(
 
     var popularProducts by remember { mutableStateOf<List<Product>>(emptyList()) }
     var recommendedProducts by remember { mutableStateOf<List<Product>>(emptyList()) }
+    var isLoading by remember {
+        mutableStateOf(true)
+    }
 
     LaunchedEffect(searchText) {
         if (searchText.isNotBlank()) {
@@ -95,14 +99,22 @@ fun HomeScreen(
         }
     }
     LaunchedEffect(Unit) {
+        isLoading = true
         try {
-            popularProducts = RetrofitInstance.api.getPopularProducts()
-            val frequentQuery = searchDao.getMostFrequentSearch()
+            popularProducts =
+                RetrofitInstance.api
+                    .getPopularProducts()
+            val frequentQuery =
+                searchDao.getMostFrequentSearch()
             if (frequentQuery != null) {
-                recommendedProducts = RetrofitInstance.api.getRecommendedProducts(frequentQuery)
+                recommendedProducts =
+                    RetrofitInstance.api
+                        .getRecommendedProducts(frequentQuery)
             }
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            isLoading = false
         }
     }
 
@@ -129,7 +141,6 @@ fun HomeScreen(
                         )
                     }
                 },
-                // Gold divider line under top bar
                 modifier = Modifier.border(
                     width = 0.5.dp,
                     brush = Brush.horizontalGradient(
@@ -199,7 +210,6 @@ fun HomeScreen(
                 .fillMaxSize()
                 .background(DeepObsidian)
         ) {
-            // Search bar
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -256,7 +266,6 @@ fun HomeScreen(
                 }
             }
 
-            // Category chips
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -289,7 +298,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Tab row
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -328,29 +336,43 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Product grid
             val productsToShow = if (selectedTab == "popular") popularProducts else recommendedProducts
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                items(productsToShow.size) { index ->
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .clickable { onProductClick(productsToShow[index]) }
-                    ) {
-                        ProductCard(
-                            name = productsToShow[index].productName,
-                            price = "₹${productsToShow[index].price}",
-                            rating = productsToShow[index].rating.toString(),
-                            imageUrl = productsToShow[index].imageUrl
-                        )
+            if(isLoading){
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(6){
+                        ProductCardSkeleton()
+                    }
+                }
+            }else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(productsToShow.size) { index ->
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(12.dp))
+                                .clickable { onProductClick(productsToShow[index]) }
+                        ) {
+                            ProductCard(
+                                name = productsToShow[index].productName,
+                                price = "₹${productsToShow[index].price}",
+                                rating = productsToShow[index].rating.toString(),
+                                imageUrl = productsToShow[index].imageUrl
+                            )
+                        }
                     }
                 }
             }

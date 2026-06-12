@@ -35,6 +35,7 @@ import com.example.dressbrand.ui.theme.LuxeGold
 import com.example.dressbrand.ui.theme.RichCharcoal
 import com.example.dressbrand.ui.theme.SilverMist
 import com.example.dressbrand.ui.theme.SubtleBorder
+import com.example.dressbrand.utils.ProductCardSkeleton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,23 +64,25 @@ fun SearchResultsScreen(
         )
 
     }
+    var isLoading by remember {
+        mutableStateOf(true)
+    }
 
     LaunchedEffect(query) {
+
+        isLoading = true
 
         try {
 
             searchResults =
                 RetrofitInstance.api
-                    .getRecommendedProducts(
-                        query
-                    )
+                    .getRecommendedProducts(query)
 
-        } catch (e: Exception) {
+        } finally {
 
-            e.printStackTrace()
+            isLoading = false
 
         }
-
     }
 
     Scaffold(
@@ -332,8 +335,22 @@ fun SearchResultsScreen(
             Spacer(
                 modifier = Modifier.height(18.dp)
             )
+            if (isLoading){
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.fillMaxSize().padding(horizontal = 12.dp),
 
-            if (searchResults.isEmpty()) {
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(6){
+                        ProductCardSkeleton()
+                    }
+                }
+            }
+
+            else if (searchResults.isEmpty()) {
 
                 Box(
                     modifier = Modifier.fillMaxSize(),
