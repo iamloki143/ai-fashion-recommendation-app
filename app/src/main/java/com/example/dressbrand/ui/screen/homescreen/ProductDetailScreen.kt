@@ -50,6 +50,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.dressbrand.data.CartItem
 import com.example.dressbrand.data.Product
 import com.example.dressbrand.data.room.DatabaseProvider
@@ -65,6 +68,7 @@ import com.example.dressbrand.ui.theme.RichCharcoal
 import com.example.dressbrand.ui.theme.SilverMist
 import com.example.dressbrand.ui.theme.SoftCrimson
 import com.example.dressbrand.ui.theme.SubtleBorder
+import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -90,6 +94,9 @@ fun ProductDetailScreen(
         "L" to product.sizeL,
         "XL" to product.sizeXL
     )
+    var imageLoading by remember {
+        mutableStateOf(true)
+    }
 
     Scaffold(
         containerColor = DeepObsidian,
@@ -141,20 +148,44 @@ fun ProductDetailScreen(
                 .background(DeepObsidian)
                 .verticalScroll(rememberScrollState())
         ) {
-            // Full-width product image
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(420.dp)
                     .background(RichCharcoal)
             ) {
-                AsyncImage(
-                    model = product.imageUrl,
-                    contentDescription = product.productName,
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                val painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(product.imageUrl)
+                        .crossfade(true)
+                        .build()
                 )
-                // Gradient overlay at bottom
+
+                imageLoading =
+                    painter.state is AsyncImagePainter.State.Loading
+
+                Box {
+
+                    if (imageLoading) {
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .shimmer()
+                                .background(
+                                    ElevatedSurface
+                                )
+                        )
+
+                    }
+
+                    AsyncImage(
+                        model = product.imageUrl,
+                        contentDescription = product.productName,
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -168,7 +199,6 @@ fun ProductDetailScreen(
                 )
             }
 
-            // Product info
             Column(
                 modifier = Modifier.padding(horizontal = 20.dp)
             ) {
@@ -229,7 +259,6 @@ fun ProductDetailScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Add to cart button
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -260,7 +289,6 @@ fun ProductDetailScreen(
             }
         }
 
-        // Add to Cart Dialog
         if (showCartDialog) {
             AlertDialog(
                 onDismissRequest = { showCartDialog = false },
@@ -281,7 +309,6 @@ fun ProductDetailScreen(
                 },
                 text = {
                     Column {
-                        // Product image in dialog
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()

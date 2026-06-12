@@ -186,7 +186,6 @@ fun CartScreen(
                 .fillMaxSize()
                 .background(DeepObsidian)
         ) {
-            // Header section
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -241,7 +240,6 @@ fun CartScreen(
                                 .padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Product image
                             AsyncImage(
                                 model = item.imageUrl,
                                 contentDescription = item.productName,
@@ -276,7 +274,6 @@ fun CartScreen(
                                     fontWeight = FontWeight.Bold
                                 )
                                 Spacer(modifier = Modifier.height(10.dp))
-                                // Quantity row
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Box(
                                         modifier = Modifier
@@ -315,7 +312,6 @@ fun CartScreen(
                                     }
                                 }
                             }
-                            // Delete button
                             IconButton(
                                 onClick = { cartItems.remove(item) },
                                 modifier = Modifier
@@ -335,7 +331,6 @@ fun CartScreen(
                 }
             }
 
-            // Order total bar
             if (cartItems.isNotEmpty()) {
                 Box(
                     modifier = Modifier
@@ -378,7 +373,6 @@ fun CartScreen(
             }
         }
 
-        // Checkout Dialog
         if (showCheckoutDialog) {
             AlertDialog(
                 onDismissRequest = { showCheckoutDialog = false },
@@ -451,7 +445,6 @@ fun CartScreen(
                             modifier = Modifier.clip(RoundedCornerShape(8.dp)).padding(0.dp)
                         )
                     }
-                    // Invisible button over the box to handle click
                     FilledTonalButton(
                         onClick = {
                             val itemToSave = cartItems.toList()
